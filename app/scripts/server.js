@@ -1,11 +1,14 @@
+
+'use strict';
+
 var express = require('express');
 var app = express();
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-host : 'localhost',
-user : 'root',
-password : '',
-database : 'contacts'
+	host : 'localhost',
+	user : 'root',
+	password : '',
+	database : 'contacts'
 });
 
 connection.connect(function(){
@@ -49,11 +52,13 @@ res.render('index.html');
 
 app.get('/load',function(req,res){
 
-connection.query("select * from users",
-function(err,rows,fields){
-if(err) throw err;
-	res.end(JSON.stringify(rows));
-});
+	connection.query("select * from users",
+	function(err,rows){
+			if(err) {
+				throw err;
+			}
+			res.end(JSON.stringify(rows));
+		});
 
 });
 
@@ -65,8 +70,10 @@ app.listen(7001,function(){
 app.get('/load',function(req,res){
 
 connection.query("select * from users",
-function(err,rows,fields){
-	if(err) throw err;
+function(err,rows){
+	if(err) {
+		throw err;
+	}
 	res.end(JSON.stringify(rows));
 });
 
